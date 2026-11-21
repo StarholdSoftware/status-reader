@@ -5,6 +5,7 @@
 **A backup way to read Starhold's status updates, for when the status site itself is down.**
 
 [![Open the reader](https://img.shields.io/badge/open-the%20reader-2a4f8f?style=for-the-badge)](https://starholdsoftware.github.io/status-reader/)
+[![Mirror](https://img.shields.io/badge/mirror-pages.dev-f38020?style=for-the-badge)](https://starhold-status-reader.pages.dev/)
 [![Status site](https://img.shields.io/badge/status%20site-status.starhold.app-1d6b3a?style=for-the-badge)](https://status.starhold.app)
 
 ![One file](https://img.shields.io/badge/one%20file-index.html-555?logo=html5&logoColor=white)
@@ -25,6 +26,9 @@ Starhold's status updates normally live at **https://status.starhold.app**. Each
 > This is a fallback display only. The status site is the main place for Starhold's status.
 
 Open **https://starholdsoftware.github.io/status-reader/** and it shows Starhold's own status feed.
+
+- **Mirror:** https://starhold-status-reader.pages.dev/ (the same file, byte for byte, on Cloudflare Pages).
+- **Download this page and keep it: it works from a file.** Save [`index.html`](https://raw.githubusercontent.com/StarholdSoftware/status-reader/master/index.html) and open it in your browser. It needs neither host.
 
 <a id="how"></a>
 ## 🔏 How it checks what it shows
@@ -48,6 +52,7 @@ flowchart LR
 - The page loads no scripts, fonts, images or analytics from anywhere. Everything it needs is inside `index.html`.
 - The only connections it makes are to the Nostr relays it reads from. Its Content-Security-Policy allows nothing else.
 - It stores nothing: no cookies and no local storage.
+- This page is hosted by GitHub Pages and mirrored on Cloudflare Pages. Like any web host, they see your IP address when you load it.
 
 <a id="other"></a>
 ## 🔑 Reading another feed
