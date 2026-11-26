@@ -1,0 +1,40 @@
+# Checks every commit on GitHub's side: a public label (type: description, no ticket key; an older keyed form is
+# tolerated for history published earlier) and authorship by the release identity. Hosted runner, no secrets.
+
+name: verify
+
+on:
+  push:
+    branches: [master, staging]
+  pull_request: {}
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Labels and identity of every commit
+        run: |
+          set -eu
+          label='^(feature|enhancement|bugfix|security|docs|refactor|build|test|release|chore)(\([A-Z][A-Z0-9]{1,9}-[0-9]{1,6}\))?: [a-z0-9][a-z0-9 .'"'"'/-]{2,58}[a-z0-9]$'
+          want='Starhold <noreply@starhold.dev>'
+          bad=0
+          # %x09 is a tab: sha, author, committer, subject.
+          git log --format='%h%x09%an <%ae>%x09%cn <%ce>%x09%s' HEAD > commits.tsv
+          while IFS="$(printf '\t')" read -r sha author committer subject; do
+            if [ "$author" != "$want" ] || [ "$committer" != "$want" ]; then
+              echo "::error::$sha is not authored and committed by the release identity"; bad=1
+            fi
+            if [ "${#subject}" -gt 72 ] || ! printf '%s\n' "$subject" | grep -Eq "$label"; then
+              echo "::error::$sha has an unlabelled subject: $subject"; bad=1
+            fi
+          done < commits.tsv
+          rm commits.tsv
+          [ "$bad" -eq 0 ] && echo "all $(git rev-list --count HEAD) commits are labelled and made by the release identity"
+          exit "$bad"
