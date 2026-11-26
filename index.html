@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
 <meta name="heliostat-default-feed" content="npub1hzk2peeqpmd342gqdupe0d9jda2e9s7n2gz4psxx9gdlqudlcyjqll63cv">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-4SpAlwIjDPLmCvusZwWPmtAWEY6AgYW85HqYJnEGp1Q=' 'sha256-JPQVV/X64p/WU9XrC9KHaUSS7qWST7S/ydWetMTbm+M=' 'sha256-eDEmr+wKVyRECCT/QyLAvQc2AmhnAqqN6tpNd7mnXpE='; style-src 'sha256-wPRt5NRxBmjsK/KHQ5jtEPWPUHi82loq+lapCHGvDFg='; connect-src wss://nostr.starhold.app wss://relay.damus.io wss://nos.lol wss://relay.primal.net wss://offchain.pub wss://nostr.mom; img-src 'none'; font-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-4SpAlwIjDPLmCvusZwWPmtAWEY6AgYW85HqYJnEGp1Q=' 'sha256-7bb5svryM1gA954evZ1AADFWQqH2RAeK5S3WOkViVvw=' 'sha256-eDEmr+wKVyRECCT/QyLAvQc2AmhnAqqN6tpNd7mnXpE='; style-src 'sha256-wPRt5NRxBmjsK/KHQ5jtEPWPUHi82loq+lapCHGvDFg='; connect-src wss://nostr.starhold.app wss://relay.damus.io wss://nos.lol wss://relay.primal.net wss://offchain.pub wss://nostr.mom; img-src 'none'; font-src 'none'; base-uri 'none'; form-action 'none'">
 <title>Status outage reader</title>
 <!--
-  Heliostat outage reader (HELIO-6). One self-contained file: no build step, no server, no CDN, no analytics, no
+  Heliostat outage reader. One self-contained file: no build step, no server, no CDN, no analytics, no
   third-party request of any kind. Your browser connects straight to the Nostr relays listed below, fetches a status
   feed's posts and checks every post's id (SHA-256, NIP-01) and BIP-340 signature before showing it.
 
@@ -1412,7 +1412,7 @@ const __TEST = /* @__PURE__ */ freeze({
 return { schnorr, hashes, etc, utils };
 })();</script>
 <script id="reader-core">
-/* Heliostat outage reader core (HELIO-6). Pure functions, no DOM: tests/reader runs these in Node. */
+/* Heliostat outage reader core. Pure functions, no DOM: tests/reader runs these in Node. */
 (function (g) {
   'use strict';
   const RELAYS = ['wss://nostr.starhold.app', 'wss://relay.damus.io', 'wss://nos.lol', 'wss://relay.primal.net',
